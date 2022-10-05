@@ -1,0 +1,72 @@
+mysql> select * from emp_det
+    -> ;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> where ADDRESS in("Delhi","Indore","Mumbai");
++------+----------+------+---------+--------+
+| id   | NAME     | AGE  | ADDRESS | SALARY |
++------+----------+------+---------+--------+
+|    2 | Khilan   |   25 | Delhi   | 150.00 |
+|    4 | Chaitali |   25 | Mumbai  | 650.00 |
+|    6 | Muffy    |   25 | Indore  | 100.00 |
++------+----------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> where NAME between "Kaushik" and "Muffy";
++------+---------+------+---------+--------+
+| id   | NAME    | AGE  | ADDRESS | SALARY |
++------+---------+------+---------+--------+
+|    2 | Khilan  |   25 | Delhi   | 150.00 |
+|    3 | Kaushik |   23 | Kota    | 200.00 |
+|    6 | Muffy   |   25 | Indore  | 100.00 |
++------+---------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> where SALARY NOT between 100 and 200;
++------+----------+------+---------+--------+
+| id   | NAME     | AGE  | ADDRESS | SALARY |
++------+----------+------+---------+--------+
+|    4 | Chaitali |   25 | Mumbai  | 650.00 |
+|    5 | Hardik   |   24 | Bhopal  | 850.00 |
++------+----------+------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(SALARY) as tot_sal from emp_det;
++---------+
+| tot_sal |
++---------+
+| 2150.00 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select max(SALARY) as max_sal from emp_det;
++---------+
+| max_sal |
++---------+
+|  850.00 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select count(NAME) as tot_emp from emp_det;
++---------+
+| tot_emp |
++---------+
+|       6 |
++---------+
+1 row in set (0.00 sec)
+
+mysql>
+
