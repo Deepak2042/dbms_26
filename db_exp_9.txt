@@ -1,0 +1,184 @@
+mysql> select * from emp_det;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create table emp_exp(name varchar(12),exp varchar(5),grade varchar(1),field varchar(10));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC emp_exp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(12) | YES  |     | NULL    |       |
+| exp   | varchar(5)  | YES  |     | NULL    |       |
+| grade | varchar(1)  | YES  |     | NULL    |       |
+| field | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into emp_exp values("Ramesh","7yrs","A","LTX");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp_exp values("Khilan","7yrs","B","MRN");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp_exp values("Kaushik","11yrs","A","RNT");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp_exp values("Chaitali","11yrs","A","LTX");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp_exp values("Hardik","13yrs","B","JZX");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp_exp values("Muffy","11yrs","C","RNT");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp_exp;
++----------+-------+-------+-------+
+| name     | exp   | grade | field |
++----------+-------+-------+-------+
+| Ramesh   | 7yrs  | A     | LTX   |
+| Khilan   | 7yrs  | B     | MRN   |
+| Kaushik  | 11yrs | A     | RNT   |
+| Chaitali | 11yrs | A     | LTX   |
+| Hardik   | 13yrs | B     | JZX   |
+| Muffy    | 11yrs | C     | RNT   |
++----------+-------+-------+-------+
+6 rows in set (0.00 sec)
+    -> ^C
+mysql> select AGE, ADDRESS, SALARY,exp,grade,field
+    -> from emp_det,emp_exp
+    -> where emp_det.NAME=emp_exp.name;
++------+-----------+--------+-------+-------+-------+
+| AGE  | ADDRESS   | SALARY | exp   | grade | field |
++------+-----------+--------+-------+-------+-------+
+|   24 | Ahmedabad | 200.00 | 7yrs  | A     | LTX   |
+|   25 | Delhi     | 150.00 | 7yrs  | B     | MRN   |
+|   23 | Kota      | 200.00 | 11yrs | A     | RNT   |
+|   25 | Mumbai    | 650.00 | 11yrs | A     | LTX   |
+|   24 | Bhopal    | 850.00 | 13yrs | B     | JZX   |
+|   25 | Indore    | 100.00 | 11yrs | C     | RNT   |
++------+-----------+--------+-------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select AGE, ADDRESS, SALARY,exp,grade,field
+    -> from emp_det
+    -> inner join emp_exp
+    -> on emp_det.name=emp_exp.name;
++------+-----------+--------+-------+-------+-------+
+| AGE  | ADDRESS   | SALARY | exp   | grade | field |
++------+-----------+--------+-------+-------+-------+
+|   24 | Ahmedabad | 200.00 | 7yrs  | A     | LTX   |
+|   25 | Delhi     | 150.00 | 7yrs  | B     | MRN   |
+|   23 | Kota      | 200.00 | 11yrs | A     | RNT   |
+|   25 | Mumbai    | 650.00 | 11yrs | A     | LTX   |
+|   24 | Bhopal    | 850.00 | 13yrs | B     | JZX   |
+|   25 | Indore    | 100.00 | 11yrs | C     | RNT   |
++------+-----------+--------+-------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> create table cust(cus_id int(4), cus_name varchar(12), contact int(11), address varchar(22), city varchar(10), zip_code int(7), country varchar(2));
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+
+mysql> insert into cust values(1,"JACK",9907643,"est-berlin,34","obere",90654,"GR");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into cust values(2,"Anna",9654345,"bull to de,51","mexico",55555,"MX");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into cust values(3,"elisa",8721906,"elfile es'da 62","paris",89654,"PR");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from cust
+    -> ;
++--------+----------+---------+-----------------+--------+----------+---------+
+| cus_id | cus_name | contact | address         | city   | zip_code | country |
++--------+----------+---------+-----------------+--------+----------+---------+
+|      1 | JACK     | 9907643 | est-berlin,34   | obere  |    90654 | GR      |
+|      2 | Anna     | 9654345 | bull to de,51   | mexico |    55555 | MX      |
+|      3 | elisa    | 8721906 | elfile es'da 62 | paris  |    89654 | PR      |
++--------+----------+---------+-----------------+--------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> create table orders(ord_id int(6), cus_id int(4),emp_id int(4),orderdate varchar(10),shipperid int(4));
+Query OK, 0 rows affected, 4 warnings (0.04 sec)
+
+mysql> insert into orders values(10308,2,7,"1996-09-18",3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(10309,37,3,"1996-09-19",1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(10310,77,8,"1996-09-20",2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from orders;
++--------+--------+--------+------------+-----------+
+| ord_id | cus_id | emp_id | orderdate  | shipperid |
++--------+--------+--------+------------+-----------+
+|  10308 |      2 |      7 | 1996-09-18 |         3 |
+|  10309 |     37 |      3 | 1996-09-19 |         1 |
+|  10310 |     77 |      8 | 1996-09-20 |         2 |
++--------+--------+--------+------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select ord_id,cus_name,address,city
+    -> from cust c, orders o
+    -> where c.cus_id=o.shipperid;
++--------+----------+-----------------+--------+
+| ord_id | cus_name | address         | city   |
++--------+----------+-----------------+--------+
+|  10308 | elisa    | elfile es'da 62 | paris  |
+|  10309 | JACK     | est-berlin,34   | obere  |
+|  10310 | Anna     | bull to de,51   | mexico |
++--------+----------+-----------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select ord_id,cus_name,address,city
+    -> from orders
+    -> left outer join cust
+    -> on orders.shipperid=cust.cus_id;
++--------+----------+-----------------+--------+
+| ord_id | cus_name | address         | city   |
++--------+----------+-----------------+--------+
+|  10308 | elisa    | elfile es'da 62 | paris  |
+|  10309 | JACK     | est-berlin,34   | obere  |
+|  10310 | Anna     | bull to de,51   | mexico |
++--------+----------+-----------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from orders
+    -> left outer join cust
+    -> on orders.shipperid=cust.cus_id;
++--------+--------+--------+------------+-----------+--------+----------+---------+-----------------+--------+----------+---------+
+| ord_id | cus_id | emp_id | orderdate  | shipperid | cus_id | cus_name | contact | address         | city   | zip_code | country |
++--------+--------+--------+------------+-----------+--------+----------+---------+-----------------+--------+----------+---------+
+|  10308 |      2 |      7 | 1996-09-18 |         3 |      3 | elisa    | 8721906 | elfile es'da 62 | paris  |    89654 | PR      |
+|  10309 |     37 |      3 | 1996-09-19 |         1 |      1 | JACK     | 9907643 | est-berlin,34   | obere  |    90654 | GR      |
+|  10310 |     77 |      8 | 1996-09-20 |         2 |      2 | Anna     | 9654345 | bull to de,51   | mexico |    55555 | MX      |
++--------+--------+--------+------------+-----------+--------+----------+---------+-----------------+--------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from cust
+    -> left outer join orders
+    -> on orders.shipperid=cust.cus_id;
++--------+----------+---------+-----------------+--------+----------+---------+--------+--------+--------+------------+-----------+
+| cus_id | cus_name | contact | address         | city   | zip_code | country | ord_id | cus_id | emp_id | orderdate  | shipperid |
++--------+----------+---------+-----------------+--------+----------+---------+--------+--------+--------+------------+-----------+
+|      1 | JACK     | 9907643 | est-berlin,34   | obere  |    90654 | GR      |  10309 |     37 |      3 | 1996-09-19 |         1 |
+|      2 | Anna     | 9654345 | bull to de,51   | mexico |    55555 | MX      |  10310 |     77 |      8 | 1996-09-20 |         2 |
+|      3 | elisa    | 8721906 | elfile es'da 62 | paris  |    89654 | PR      |  10308 |      2 |      7 | 1996-09-18 |         3 |
++--------+----------+---------+-----------------+--------+----------+---------+--------+--------+--------+------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql>
