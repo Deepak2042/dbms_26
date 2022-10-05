@@ -1,0 +1,57 @@
+Enter password: *******************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mydb;
+Database changed
+mysql> create table officers(name varchar(15), dept_id int(5));
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> DESC officers
+    -> ^C
+mysql> DESC officers;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(15) | YES  |     | NULL    |       |
+| dept_id | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into officers values(("kali",082),("mohan raj",072));
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> insert into officers values("kali",082,"mohan",095);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into officers values("kali",082);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into officers values("mohan",095);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into officers values("rita",045);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into officers values("lisa shan",062);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from officers;
++-----------+---------+
+| name      | dept_id |
++-----------+---------+
+| kali      |      82 |
+| mohan     |      95 |
+| rita      |      45 |
+| lisa shan |      62 |
++-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql>
