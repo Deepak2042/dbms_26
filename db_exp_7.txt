@@ -1,0 +1,93 @@
+
+mysql> select * from emp_det
+    -> ;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> order by ADDRESS;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> order by SALARY;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    6 | Muffy    |   25 | Indore    | 100.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> group by id;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> group by AGE;
++------+---------+------+-----------+--------+
+| id   | NAME    | AGE  | ADDRESS   | SALARY |
++------+---------+------+-----------+--------+
+|    1 | Ramesh  |   24 | Ahmedabad | 200.00 |
+|    2 | Khilan  |   25 | Delhi     | 150.00 |
+|    3 | Kaushik |   23 | Kota      | 200.00 |
++------+---------+------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> group by SALARY
+    -> having SALARY>200
+    -> ;
++------+----------+------+---------+--------+
+| id   | NAME     | AGE  | ADDRESS | SALARY |
++------+----------+------+---------+--------+
+|    4 | Chaitali |   25 | Mumbai  | 650.00 |
+|    5 | Hardik   |   24 | Bhopal  | 850.00 |
++------+----------+------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> having AGE>24;
++------+----------+------+---------+--------+
+| id   | NAME     | AGE  | ADDRESS | SALARY |
++------+----------+------+---------+--------+
+|    2 | Khilan   |   25 | Delhi   | 150.00 |
+|    4 | Chaitali |   25 | Mumbai  | 650.00 |
+|    6 | Muffy    |   25 | Indore  | 100.00 |
++------+----------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql>
+
