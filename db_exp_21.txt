@@ -1,0 +1,238 @@
+Enter password: *******************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 33
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mydb;
+Database changed
+mysql> desc orders;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ord_id     | int         | YES  |     | NULL    |       |
+| cus_name   | varchar(15) | YES  |     | NULL    |       |
+| ord_date   | date        | YES  |     | NULL    |       |
+| shipper_id | varchar(6)  | YES  |     | NULL    |       |
+| del_date   | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into orders values(10308,"Alex",'2022-04-11',"AZZ0C1",'2022-04-17');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values(10407,"Pratham",'2022-02-13',"EFX1N6",'2022-02-27');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(11057,"Akash",'2020-06-22',"RNT4K9",'2020-07-04');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(11009,"Priya",'2021-11-07',"MSK6H2",'2021-11-19');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(10309,"Rita",'2019-07-13',"LNT5O0",'2019-07-27');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(10497,"Sam",'2022-09-06',"XXI8T1",'2022-09-21');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from orders;
++--------+----------+------------+------------+------------+
+| ord_id | cus_name | ord_date   | shipper_id | del_date   |
++--------+----------+------------+------------+------------+
+|  10308 | Alex     | 2022-04-11 | AZZ0C1     | 2022-04-17 |
+|  10407 | Pratham  | 2022-02-13 | EFX1N6     | 2022-02-27 |
+|  11057 | Akash    | 2020-06-22 | RNT4K9     | 2020-07-04 |
+|  11009 | Priya    | 2021-11-07 | MSK6H2     | 2021-11-19 |
+|  10309 | Rita     | 2019-07-13 | LNT5O0     | 2019-07-27 |
+|  10497 | Sam      | 2022-09-06 | XXI8T1     | 2022-09-21 |
++--------+----------+------------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select cus_name,shipper_id from orders o where exists(select del_date where o.del_date>'2020-01-01');
++----------+------------+
+| cus_name | shipper_id |
++----------+------------+
+| Alex     | AZZ0C1     |
+| Pratham  | EFX1N6     |
+| Akash    | RNT4K9     |
+| Priya    | MSK6H2     |
+| Sam      | XXI8T1     |
++----------+------------+
+5 rows in set (0.01 sec)
+
+mysql> create view short_list as select * from orders
+    -> where ord_id>10000 and ord_id<11000;
+ERROR 1050 (42S01): Table 'short_list' already exists
+mysql> create view sl as select * from orders
+    -> where ord_id>10000 and ord_id<11000;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from sl;
++--------+----------+------------+------------+------------+
+| ord_id | cus_name | ord_date   | shipper_id | del_date   |
++--------+----------+------------+------------+------------+
+|  10308 | Alex     | 2022-04-11 | AZZ0C1     | 2022-04-17 |
+|  10407 | Pratham  | 2022-02-13 | EFX1N6     | 2022-02-27 |
+|  10309 | Rita     | 2019-07-13 | LNT5O0     | 2019-07-27 |
+|  10497 | Sam      | 2022-09-06 | XXI8T1     | 2022-09-21 |
++--------+----------+------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select ord_id, cus_name from orders
+    -> where ord_date in(select ord_date from orders where ord_date>='2022-02-28');
++--------+----------+
+| ord_id | cus_name |
++--------+----------+
+|  10308 | Alex     |
+|  10497 | Sam      |
++--------+----------+
+2 rows in set (0.01 sec)
+
+mysql> create table ods(order_date date, shipping_id varchar(6),delivery_date date);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into ods(order_date,shipping_id,delivery_date)
+    -> select ord_id,shipper_id,del_id
+    -> from orders
+    -> where ord_id>11000 and ord_id<12000
+    -> order by cus_name;
+ERROR 1054 (42S22): Unknown column 'del_id' in 'field list'
+mysql> insert into ods(order_date,shipping_id,delivery_date)
+    -> select ord_date,shipper_id,del_date
+    -> from orders
+    -> where ord_id>11000 and ord_id<12000
+    -> order by cus_name;
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from ods;
++------------+-------------+---------------+
+| order_date | shipping_id | delivery_date |
++------------+-------------+---------------+
+| 2020-06-22 | RNT4K9      | 2020-07-04    |
+| 2021-11-07 | MSK6H2      | 2021-11-19    |
++------------+-------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select avg(ord_date) from orders;
++---------------+
+| avg(ord_date) |
++---------------+
+| 20210662.0000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from orders
+    -> where ord_id>=(select avg(ord_id) from orders);
++--------+----------+------------+------------+------------+
+| ord_id | cus_name | ord_date   | shipper_id | del_date   |
++--------+----------+------------+------------+------------+
+|  11057 | Akash    | 2020-06-22 | RNT4K9     | 2020-07-04 |
+|  11009 | Priya    | 2021-11-07 | MSK6H2     | 2021-11-19 |
++--------+----------+------------+------------+------------+
+2 rows in set (0.01 sec)
+
+mysql>
+mysql> create table customer(ord_id int(5),cus_name varchar(15),shipper_id varchar(6),item_count(3),exact_date date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(3),exact_date date)' at line 1
+mysql> create table customer(ord_id int(5),cus_name varchar(15),shipper_id varchar(6),item_count int(3),exact_date date);
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> insert into customer values(10308,"Alex","AZZ0C1",7,'2022-04-17');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(10308,"Alex","AZZ0C1",7,'2022-04-17');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(10407,"Pratham","EFX1N6",11,'2022-04-24');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(11057,"Akash","RNT4K9",5,'2020-07-01');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(11009,"Priya","MSK6H2",9,'2021-11-19');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(10309,"Rita","LNT5O0",3,'2019-07-27');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(10497,"Sam","XXI8T1",5,'2022-09-20');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++--------+----------+------------+------------+------------+
+| ord_id | cus_name | shipper_id | item_count | exact_date |
++--------+----------+------------+------------+------------+
+|  10308 | Alex     | AZZ0C1     |          7 | 2022-04-17 |
+|  10308 | Alex     | AZZ0C1     |          7 | 2022-04-17 |
+|  10407 | Pratham  | EFX1N6     |         11 | 2022-04-24 |
+|  11057 | Akash    | RNT4K9     |          5 | 2020-07-01 |
+|  11009 | Priya    | MSK6H2     |          9 | 2021-11-19 |
+|  10309 | Rita     | LNT5O0     |          3 | 2019-07-27 |
+|  10497 | Sam      | XXI8T1     |          5 | 2022-09-20 |
++--------+----------+------------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> delete from customers where item_count=7;
+ERROR 1146 (42S02): Table 'mydb.customers' doesn't exist
+mysql> delete from customer where item_count=7;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> insert into customer values(10308,"Alex","AZZ0C1",7,'2022-04-17');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++--------+----------+------------+------------+------------+
+| ord_id | cus_name | shipper_id | item_count | exact_date |
++--------+----------+------------+------------+------------+
+|  10407 | Pratham  | EFX1N6     |         11 | 2022-04-24 |
+|  11057 | Akash    | RNT4K9     |          5 | 2020-07-01 |
+|  11009 | Priya    | MSK6H2     |          9 | 2021-11-19 |
+|  10309 | Rita     | LNT5O0     |          3 | 2019-07-27 |
+|  10497 | Sam      | XXI8T1     |          5 | 2022-09-20 |
+|  10308 | Alex     | AZZ0C1     |          7 | 2022-04-17 |
++--------+----------+------------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select o.cus_name,o.ord_date,c.item_count,c.shipper_id from orders o inner join customer c on o.del_date>c.exact_date;
++----------+------------+------------+------------+
+| cus_name | ord_date   | item_count | shipper_id |
++----------+------------+------------+------------+
+| Sam      | 2022-09-06 |         11 | EFX1N6     |
+| Sam      | 2022-09-06 |          5 | RNT4K9     |
+| Priya    | 2021-11-07 |          5 | RNT4K9     |
+| Akash    | 2020-06-22 |          5 | RNT4K9     |
+| Pratham  | 2022-02-13 |          5 | RNT4K9     |
+| Alex     | 2022-04-11 |          5 | RNT4K9     |
+| Sam      | 2022-09-06 |          9 | MSK6H2     |
+| Pratham  | 2022-02-13 |          9 | MSK6H2     |
+| Alex     | 2022-04-11 |          9 | MSK6H2     |
+| Sam      | 2022-09-06 |          3 | LNT5O0     |
+| Priya    | 2021-11-07 |          3 | LNT5O0     |
+| Akash    | 2020-06-22 |          3 | LNT5O0     |
+| Pratham  | 2022-02-13 |          3 | LNT5O0     |
+| Alex     | 2022-04-11 |          3 | LNT5O0     |
+| Sam      | 2022-09-06 |          5 | XXI8T1     |
+| Sam      | 2022-09-06 |          7 | AZZ0C1     |
++----------+------------+------------+------------+
+16 rows in set (0.00 sec)
+
+mysql> select o.cus_name,o.ord_date,c.item_count,c.shipper_id from orders o inner join customer c on o.del_date=c.exact_date;
++----------+------------+------------+------------+
+| cus_name | ord_date   | item_count | shipper_id |
++----------+------------+------------+------------+
+| Priya    | 2021-11-07 |          9 | MSK6H2     |
+| Rita     | 2019-07-13 |          3 | LNT5O0     |
+| Alex     | 2022-04-11 |          7 | AZZ0C1     |
++----------+------------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql>
