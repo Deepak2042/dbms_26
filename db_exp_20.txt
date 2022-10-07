@@ -1,0 +1,258 @@
+Enter password: *******************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mydb;
+Database changed
+mysql> select * from emp_det;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> group by NAME;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.01 sec)
+
+mysql> select * from emp_det
+    -> order by NAME;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> order by ADDRESS;
++------+----------+------+-----------+--------+
+| id   | NAME     | AGE  | ADDRESS   | SALARY |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   24 | Ahmedabad | 200.00 |
+|    5 | Hardik   |   24 | Bhopal    | 850.00 |
+|    2 | Khilan   |   25 | Delhi     | 150.00 |
+|    6 | Muffy    |   25 | Indore    | 100.00 |
+|    3 | Kaushik  |   23 | Kota      | 200.00 |
+|    4 | Chaitali |   25 | Mumbai    | 650.00 |
++------+----------+------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_det
+    -> where AGE<=24;
++------+---------+------+-----------+--------+
+| id   | NAME    | AGE  | ADDRESS   | SALARY |
++------+---------+------+-----------+--------+
+|    1 | Ramesh  |   24 | Ahmedabad | 200.00 |
+|    3 | Kaushik |   23 | Kota      | 200.00 |
+|    5 | Hardik  |   24 | Bhopal    | 850.00 |
++------+---------+------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_mydb |
++----------------+
+| actors         |
+| bank           |
+| book           |
+| book_authors   |
+| book_copies    |
+| course         |
+| cust           |
+| dept           |
+| emp_det        |
+| emp_exp        |
+| lib_branch     |
+| new_details    |
+| officers       |
+| orders         |
+| parts          |
+| player         |
+| publisher      |
+| pupil          |
+| sal_view       |
+| student        |
+| suppliers      |
+| t              |
+| team           |
+| temp           |
+| theater        |
++----------------+
+25 rows in set (0.01 sec)
+
+mysql> select * from parts;
+Empty set (0.01 sec)
+
+mysql> select * from suppliers;
++-------------+---------+----------------+-----------------------+
+| supplier_id | name    | phone          | address               |
++-------------+---------+----------------+-----------------------+
+|           1 | ABC Inc | (408)-908-2476 | 4000 North 1st Street |
++-------------+---------+----------------+-----------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from student;
++--------+--------+----------+
+| name   | stu_id | avg_mark |
++--------+--------+----------+
+| chan   |     11 |       79 |
+| reta   |      9 |       53 |
+| kai    |     19 |       81 |
+| joye   |      5 |       92 |
+| stella |     13 |       69 |
+| max    |     21 |       42 |
+| henna  |      7 |       39 |
++--------+--------+----------+
+7 rows in set (0.01 sec)
+
+mysql> insert into student values("rolex",17,98);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++--------+--------+----------+
+| name   | stu_id | avg_mark |
++--------+--------+----------+
+| chan   |     11 |       79 |
+| reta   |      9 |       53 |
+| kai    |     19 |       81 |
+| joye   |      5 |       92 |
+| stella |     13 |       69 |
+| max    |     21 |       42 |
+| henna  |      7 |       39 |
+| rolex  |     17 |       98 |
++--------+--------+----------+
+8 rows in set (0.00 sec)
+
+mysql> update student  set stu_id=12
+    -> where avg_mark =79;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from officers
+    -> group by off_rank
+    -> having off_rank="A";
++------+---------+----------+
+| name | dept_id | off_rank |
++------+---------+----------+
+| kali |      82 | A        |
++------+---------+----------+
+1 row in set (0.01 sec)
+
+where avg_mark>=55' at line 2
+mysql> create view short_list
+    -> as select * from student
+    -> where avg_mark>=55;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from short_list;
++--------+--------+----------+
+| name   | stu_id | avg_mark |
++--------+--------+----------+
+| chan   |     12 |       79 |
+| kai    |     19 |       81 |
+| joye   |      5 |       92 |
+| stella |     13 |       69 |
+| rolex  |     17 |       98 |
++--------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+mysql> select * from student;
++--------+--------+----------+
+| name   | stu_id | avg_mark |
++--------+--------+----------+
+| chan   |     12 |       79 |
+| reta   |      9 |       53 |
+| kai    |     19 |       81 |
+| joye   |      5 |       92 |
+| stella |     13 |       69 |
+| max    |     21 |       42 |
+| henna  |      7 |       39 |
+| rolex  |     17 |       98 |
++--------+--------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select sum(avg_mark),min(avg_mark),max(avg_mark),avg(avg_mark),count(avg_mark) from student;
++---------------+---------------+---------------+---------------+-----------------+
+| sum(avg_mark) | min(avg_mark) | max(avg_mark) | avg(avg_mark) | count(avg_mark) |
++---------------+---------------+---------------+---------------+-----------------+
+|           553 |            39 |            98 |       69.1250 |               8 |
++---------------+---------------+---------------+---------------+-----------------+
+1 row in set (0.01 sec)
+
+mysql> select name,stu_id from student where avg_mark=81;
++------+--------+
+| name | stu_id |
++------+--------+
+| kai  |     19 |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> select name, stu_id from student s where exists(select avg_mark where s.avg_mark=42);
++------+--------+
+| name | stu_id |
++------+--------+
+| max  |     21 |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> select name, stu_id from student s where exists(select avg_mark where s.avg_mark>90);
++-------+--------+
+| name  | stu_id |
++-------+--------+
+| joye  |      5 |
+| rolex |     17 |
++-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> delete from student
+    -> where avg_mark<40;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++--------+--------+----------+
+| name   | stu_id | avg_mark |
++--------+--------+----------+
+| chan   |     12 |       79 |
+| reta   |      9 |       53 |
+| kai    |     19 |       81 |
+| joye   |      5 |       92 |
+| stella |     13 |       69 |
+| max    |     21 |       42 |
+| rolex  |     17 |       98 |
++--------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql>
