@@ -1,0 +1,107 @@
+mysql> create table rented_car(cus_name varchar(16),cus_id int(4), rented_on date, due_date date);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> desc rented_car;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| cus_name  | varchar(16) | YES  |     | NULL    |       |
+| cus_id    | int         | YES  |     | NULL    |       |
+| rented_on | date        | YES  |     | NULL    |       |
+| due_date  | date        | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table rented_car add car_id int(4);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc rented_car;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| cus_name  | varchar(16) | YES  |     | NULL    |       |
+| cus_id    | int         | YES  |     | NULL    |       |
+| rented_on | date        | YES  |     | NULL    |       |
+| due_date  | date        | YES  |     | NULL    |       |
+| car_id    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into rented_car values("Audi",6068,'2022-02-11','2022-02-17',1107);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into rented_car values("Benz",5230,'2022-07-21','2022-07-29',9100);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into rented_car values("Soman",2981,'2022-04-02','2022-04-09',3962);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> update rented_car set cus_name="Antony" where cus_name="Audi";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update rented_car set cus_name="Thomas" where cus_name="Benz";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> insert into rented_car values("Sirisha",3636,'2022-07-15','2022-07-22',4671);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into rented_car values("Julie",9951,'2022-09-02','2022-09-09',4869);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from rented_car;
++----------+--------+------------+------------+--------+
+| cus_name | cus_id | rented_on  | due_date   | car_id |
++----------+--------+------------+------------+--------+
+| Antony   |   6068 | 2022-02-11 | 2022-02-17 |   1107 |
+| Thomas   |   5230 | 2022-07-21 | 2022-07-29 |   9100 |
+| Soman    |   2981 | 2022-04-02 | 2022-04-09 |   3962 |
+| Sirisha  |   3636 | 2022-07-15 | 2022-07-22 |   4671 |
+| Julie    |   9951 | 2022-09-02 | 2022-09-09 |   4869 |
++----------+--------+------------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> create table cars(car_id int(4),model_no varchar(5), car_name varchar(10));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> insert into cars values(1107,"XGC69","Audi");
+Query OK, 1 row affected (0.85 sec)
+
+mysql> insert into cars values(3962,"LLT51","Benz");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into cars values(9118,"MNS32","Jaguar");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into cars values(4869,"SRS16","Bmw");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into cars values(1452,"JAQ73","Ford");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from cars;
++--------+----------+----------+
+| car_id | model_no | car_name |
++--------+----------+----------+
+|   1107 | XGC69    | Audi     |
+|   3962 | LLT51    | Benz     |
+|   9118 | MNS32    | Jaguar   |
+|   4869 | SRS16    | Bmw      |
+|   1452 | JAQ73    | Ford     |
++--------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select r.cus_name,r.rented_on,r.due_date,c.model_no,c.car_name from rented_car r inner join cars c where r.car_id=c.car_id;
++----------+------------+------------+----------+----------+
+| cus_name | rented_on  | due_date   | model_no | car_name |
++----------+------------+------------+----------+----------+
+| Antony   | 2022-02-11 | 2022-02-17 | XGC69    | Audi     |
+| Soman    | 2022-04-02 | 2022-04-09 | LLT51    | Benz     |
+| Julie    | 2022-09-02 | 2022-09-09 | SRS16    | Bmw      |
++----------+------------+------------+----------+----------+
+3 rows in set (0.00 sec)
+
+mysql>
+
