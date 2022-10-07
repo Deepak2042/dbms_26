@@ -1,0 +1,44 @@
+Microsoft Windows [Version 10.0.22621.521]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\deeo_>cd /
+
+C:\>cd jdbc_prg
+
+C:\jdbc_prg>set path=C:\Program Files\Java\jdk1.8.0_171\bin
+
+C:\jdbc_prg>javac -cp mysql-connector-java-5.1.49-bin.jar;. DBConnect.java
+
+C:\jdbc_prg>java -cp mysql-connector-java-5.1.49-bin.jar;. DBConnect
+Thu Oct 06 11:59:21 IST 2022 WARN: Establishing SSL connection without server's identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn't set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to 'false'. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+        at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
+        at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3933)
+        at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3869)
+        at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:864)
+        at com.mysql.jdbc.MysqlIO.proceedHandshakeWithPluggableAuthentication(MysqlIO.java:1707)
+        at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1217)
+        at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2189)
+        at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2220)
+        at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2015)
+        at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:768)
+        at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at com.mysql.jdbc.Util.handleNewInstance(Util.java:403)
+        at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:385)
+        at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:323)
+        at java.sql.DriverManager.getConnection(DriverManager.java:664)
+        at java.sql.DriverManager.getConnection(DriverManager.java:247)
+        at DBConnect.<init>(DBConnect.java:13)
+        at DBConnect.main(DBConnect.java:28)
+
+C:\jdbc_prg>javac -cp mysql-connector-java-5.1.49-bin.jar;. DBConnect.java
+
+C:\jdbc_prg>java -cp mysql-connector-java-5.1.49-bin.jar;. DBConnect
+Thu Oct 06 12:01:20 IST 2022 WARN: Establishing SSL connection without server's identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn't set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to 'false'. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
+Table created
+
+C:\jdbc_prg>
