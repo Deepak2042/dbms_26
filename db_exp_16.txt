@@ -1,0 +1,45 @@
+Enter password: *******************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 27
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mydb;
+Database changed
+
+mysql> delimiter //
+mysql> create function customer(val int)
+    -> returns varchar(20)
+    -> deterministic
+    -> begin
+    -> declare cust_lvl varchar(20);
+    -> set cust_lvl='';
+    -> if val > 50000 then
+    -> set cust_lvl="PLATINUM";
+    -> elseif val<=50000 and val>=10000 then
+    -> set cust_lvl="GOLD";
+    -> elseif val<10000 then
+    -> set cust_lvl="SILVER";
+    -> end if;
+    -> return cust_lvl;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select customer(60000);
+    -> //
++-----------------+
+| customer(60000) |
++-----------------+
+| PLATINUM        |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql>
+
