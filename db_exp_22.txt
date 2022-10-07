@@ -1,0 +1,117 @@
+mysql> desc book;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| book_id        | int         | YES  |     | NULL    |       |
+| title          | varchar(15) | YES  |     | NULL    |       |
+| publisher_name | varchar(18) | YES  |     | NULL    |       |
+| publish_year   | int         | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc book_authors;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| book_id     | int         | YES  |     | NULL    |       |
+| author_name | varchar(12) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into book values(1101,"Atoms","Goi",2016);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book values(1111,"Wars","Penguin",2017);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book values(1117,"lotus_temple","Penguin",2014);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book values(1105,"ikigai","Doom",2019);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book values(1122,"Shaolong","Ket",2017);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into book values(1108,"No_moon","Goi",2017);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from book;
++---------+--------------+----------------+--------------+
+| book_id | title        | publisher_name | publish_year |
++---------+--------------+----------------+--------------+
+|    1101 | Atoms        | Goi            |         2016 |
+|    1111 | Wars         | Penguin        |         2017 |
+|    1117 | lotus_temple | Penguin        |         2014 |
+|    1105 | ikigai       | Doom           |         2019 |
+|    1122 | Shaolong     | Ket            |         2017 |
+|    1108 | No_moon      | Goi            |         2017 |
++---------+--------------+----------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select publisher_name from book
+    -> where publish_year=2017
+    -> order by publisher_name;
++----------------+
+| publisher_name |
++----------------+
+| Goi            |
+| Ket            |
+| Penguin        |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> select publish_year from book
+    -> where title="Wars";
++--------------+
+| publish_year |
++--------------+
+|         2017 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> insert into book_authors(1101,"Kaimson");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1101,"Kaimson")' at line 1
+mysql> insert into book_authors values(1101,"Kaimson");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into book_authors values(1117,"Watman");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book_authors values(1105,"Li_boo");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into book_authors values(1122,"Tony");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book_authors values(1107,"Gojo");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book_authors values(1113,"Zenitsu");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from book_authors;
++---------+-------------+
+| book_id | author_name |
++---------+-------------+
+|    1101 | Kaimson     |
+|    1117 | Watman      |
+|    1105 | Li_boo      |
+|    1122 | Tony        |
+|    1107 | Gojo        |
+|    1113 | Zenitsu     |
++---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select b.title,b.publish_year,b.publisher_name,a.author_name from book b inner join book_authors a on b.book_id=a.book_id;
++--------------+--------------+----------------+-------------+
+| title        | publish_year | publisher_name | author_name |
++--------------+--------------+----------------+-------------+
+| Atoms        |         2016 | Goi            | Kaimson     |
+| lotus_temple |         2014 | Penguin        | Watman      |
+| ikigai       |         2019 | Doom           | Li_boo      |
+| Shaolong     |         2017 | Ket            | Tony        |
++--------------+--------------+----------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql>
