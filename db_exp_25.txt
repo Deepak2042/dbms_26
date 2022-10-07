@@ -1,0 +1,117 @@
+mysql> select * from student;
++--------+--------+----------+
+| name   | stu_id | avg_mark |
++--------+--------+----------+
+| chan   |     12 |       79 |
+| reta   |      9 |       53 |
+| kai    |     19 |       81 |
+| joye   |      5 |       92 |
+| stella |     13 |       69 |
+| max    |     21 |       42 |
+| rolex  |     17 |       98 |
++--------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student add(tot int(3),grade varchar(1));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| name     | varchar(12) | YES  |     | NULL    |       |
+| stu_id   | int         | YES  |     | NULL    |       |
+| avg_mark | int         | YES  |     | NULL    |       |
+| tot      | int         | YES  |     | NULL    |       |
+| grade    | varchar(1)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update student set tot=395,grade="C"
+    -> where stu_id=12;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set tot=106,grade="F"
+    -> where stu_id=9;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set tot=405,grade="B" where stud_id=19;
+ERROR 1054 (42S22): Unknown column 'stud_id' in 'where clause'
+mysql> update student set tot=405,grade="B" where stu_id=19;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set tot=460,grade="A" where stu_id=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set tot=345,grade="D" where stu_id=13;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set tot=210,grade="F" where stu_id=21;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set tot=490,grade="S" where stu_id=17;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set tot=265,grade="D" where stu_id=9;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++--------+--------+----------+------+-------+
+| name   | stu_id | avg_mark | tot  | grade |
++--------+--------+----------+------+-------+
+| chan   |     12 |       79 |  395 | C     |
+| reta   |      9 |       53 |  265 | D     |
+| kai    |     19 |       81 |  405 | B     |
+| joye   |      5 |       92 |  460 | A     |
+| stella |     13 |       69 |  345 | D     |
+| max    |     21 |       42 |  210 | F     |
+| rolex  |     17 |       98 |  490 | S     |
++--------+--------+----------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select name, grade from student
+    -> order by grade;
++--------+-------+
+| name   | grade |
++--------+-------+
+| joye   | A     |
+| kai    | B     |
+| chan   | C     |
+| reta   | D     |
+| stella | D     |
+| max    | F     |
+| rolex  | S     |
++--------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select avg(tot) from student;
++----------+
+| avg(tot) |
++----------+
+| 367.1429 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select name , stu_id from student
+    -> where tot > 350
+    -> order by stu_id;
++-------+--------+
+| name  | stu_id |
++-------+--------+
+| joye  |      5 |
+| chan  |     12 |
+| rolex |     17 |
+| kai   |     19 |
++-------+--------+
+4 rows in set (0.00 sec)
+
+mysql>
